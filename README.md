@@ -47,8 +47,7 @@ cd wordpress-docker-nginx
 
 ### 2. Démarrer les conteneurs
 
-```docker compose up -d
-```
+```docker compose up -d```
 
 ### 3. Accéder à l'installation
 
