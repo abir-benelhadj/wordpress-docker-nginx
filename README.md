@@ -21,7 +21,8 @@ Vérifie avec :
 
 ```bash
 docker --version
-docker compose version```
+docker compose version
+```
 
 ---
 
@@ -41,11 +42,13 @@ docker compose version```
 
 ```bash
 git clone https://github.com/abir-benelhadj/wordpress-docker-nginx.git
-cd wordpress-docker-nginx```
+cd wordpress-docker-nginx
+```
 
 ### 2. Démarrer les conteneurs
 
-```docker compose up -d```
+```docker compose up -d
+```
 
 ### 3. Accéder à l'installation
 
