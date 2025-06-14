@@ -28,6 +28,8 @@ docker compose version
 
 ## 📦 Composition de la stack
 
+![Architecture de la stack](./architecture.png)
+
 | Service     | Rôle                                 | Port exposé |
 |-------------|---------------------------------------|-------------|
 | wordpress   | Application WordPress en PHP-FPM      | N/A         |
@@ -79,11 +81,8 @@ wordpress-docker/
 
 ---
 
-## 🔐 HTTPS (optionnel)
+## 🔐 HTTPS
 
-Si tu utilises un nom de domaine :
-
-- Utilise `nginx-proxy` avec `acme-companion` pour obtenir un certificat SSL automatiquement  
-- Ou configure manuellement `certbot` dans un conteneur dédié
+Pour utiliser un nom de domaine et le securiser, nous avons configurer `certbot` dans un conteneur dédié
 
 ---
