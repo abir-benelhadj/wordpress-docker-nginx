@@ -4,7 +4,8 @@ Une stack pour exécuter WordPress en local avec :
 
 - NGINX comme reverse proxy  
 - WordPress via PHP-FPM  
-- MariaDB comme base de données  
+- MariaDB comme base de données 
+- Certbot pour le HTTPS 
 - Configuration NGINX personnalisée
 
 ---
@@ -30,12 +31,12 @@ docker compose version
 
 ![Architecture de la stack](./architecture.png)
 
-| Service     | Rôle                                 | Port exposé |
+| Service     | Rôle                                  | Port exposé |
 |-------------|---------------------------------------|-------------|
 | wordpress   | Application WordPress en PHP-FPM      | N/A         |
 | db          | Base de données MariaDB               | 3306        |
-| nginx       | Serveur web et reverse proxy          | 80          |
-
+| nginx       | Serveur web et reverse proxy          | 80,443      |
+| certbot	  | Génération et renouvellement SSL	  | N/A         |
 ---
 
 ## 🚀 Lancer le projet
@@ -54,6 +55,8 @@ cd wordpress-docker-nginx
 ### 3. Accéder à l'installation
 
 Ouvre ton navigateur sur : http://localhost
+
+Avec nom de domaine local : http://bhkbtp.local
 
 ## 🛠️ Détails de configuration
 
@@ -76,7 +79,8 @@ wordpress-docker/
 │   └── default.conf  
 ├── wordpress/  
 │   └── wp-config.php (généré automatiquement)  
-├── entrypoint.sh  
+├── entrypoint.sh 
+├── certbot/ 
 └── db-data/  (volume persistant MariaDB)
 
 ---
@@ -86,3 +90,4 @@ wordpress-docker/
 Pour utiliser un nom de domaine et le securiser, nous avons configurer `certbot` dans un conteneur dédié
 
 ---
+## 🔁 Renouvellement automatique SSL
