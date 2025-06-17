@@ -54,9 +54,7 @@ cd wordpress-docker-nginx
 
 ### 3. Accéder à l'installation
 
-Ouvre ton navigateur sur : http://localhost
-
-Avec nom de domaine local : http://bhkbtp.local
+Ouvre le navigateur sur : http://localhost
 
 ## 🛠️ Détails de configuration
 
@@ -73,13 +71,13 @@ Ces valeurs peuvent être modifiées dans le fichier `docker-compose.yml`.
 
 ## 🧾 Structure du projet
 
-wordpress-docker/  
+wordpress-docker-nginx/  
 ├── docker-compose.yml  
 ├── nginx/  
 │   └── default.conf  
 ├── wordpress/  
 │   └── wp-config.php (généré automatiquement)  
-├── entrypoint.sh 
+├── renouvellement_certificat.sh 
 ├── certbot/ 
 └── db-data/  (volume persistant MariaDB)
 
@@ -88,6 +86,63 @@ wordpress-docker/
 ## 🔐 HTTPS
 
 Pour utiliser un nom de domaine et le securiser, nous avons configurer `certbot` dans un conteneur dédié
+Les certificats Let's Encrypt sont automatiquement générés lors du premier déploiement si les ports 80 et 443 sont accessibles publiquement.
+
+    🔔 Configuré le DNS du domaine pour qu’il pointe vers ta machine.
 
 ---
+
+## 🚢 Étapes de déploiement avec HTTPS
+
+    ⚠️ Lance d’abord la stack sans le conteneur certbot pour permettre à NGINX de démarrer correctement.
+
+### 🛑 1.Démarrer sans Certbot
+
+Dans le fichier docker-compose.yml, commente la section certbot: puis exécute :
+
+```docker compose up -d nginx wordpress db```
+
+### ✅ 2. Obtenir les certificats SSL
+
+Une fois que NGINX est prêt et accessible, exécute Certbot une seule fois pour générer les certificats :
+
+```docker compose run --rm certbot```
+
+### 🔁 3. Redémarrer NGINX
+
+Pour que NGINX prenne en compte les fichiers SSL générés :
+
+```docker compose restart nginx```
+
 ## 🔁 Renouvellement automatique SSL
+
+Les certificats Let's Encrypt sont valables 90 jours. Il est recommandé de configurer un renouvellement automatique toutes les 2 mois environ.
+
+### 🔃 Renouvellement manuel
+
+```docker compose run --rm certbot renew```
+
+```docker compose restart nginx```
+
+### ⏰ Exemple de tâche cron
+
+Ajouter cette ligne à crontab -e pour renouveler tous les mois :
+
+0 22 * * * ~/wordpress-docker-nginx/renouvellement_certificat.sh >> ~/renouvellement_certificat.log
+
+📄 Le fichier `renouvellement_certificat.sh` contient les commandes pour renouveler automatiquement les certificats SSL avec Certbot. Ce script est utilisé dans la tâche cron ci-dessous.
+
+## 🧼 Nettoyage
+
+### Arrêter les conteneurs :
+
+```docker compose down```
+
+### Supprimer les volumes (base de données incluse) :
+
+```docker compose down -v```
+
+
+
+
+
