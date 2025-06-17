@@ -81,6 +81,7 @@ wordpress-docker-nginx/
 ├── certbot/ 
 └── db-data/  (volume persistant MariaDB)
 
+
 ---
 
 ## 🔐 HTTPS
@@ -114,6 +115,8 @@ Pour que NGINX prenne en compte les fichiers SSL générés :
 
 ```docker compose restart nginx```
 
+---
+
 ## 🔁 Renouvellement automatique SSL
 
 Les certificats Let's Encrypt sont valables 90 jours. Il est recommandé de configurer un renouvellement automatique toutes les 2 mois environ.
@@ -132,6 +135,8 @@ Ajouter cette ligne à crontab -e pour renouveler tous les mois :
 
 📄 Le fichier `renouvellement_certificat.sh` contient les commandes pour renouveler automatiquement les certificats SSL avec Certbot. Ce script est utilisé dans la tâche cron ci-dessous.
 
+---
+
 ## 🧼 Nettoyage
 
 ### Arrêter les conteneurs :
@@ -142,7 +147,7 @@ Ajouter cette ligne à crontab -e pour renouveler tous les mois :
 
 ```docker compose down -v```
 
-
+---
 
 
 
