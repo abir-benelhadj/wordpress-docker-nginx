@@ -75,11 +75,11 @@ wordpress-docker-nginx/
 ├── docker-compose.yml  
 ├── nginx/  
 │   └── default.conf  
+├── db-data/  (volume persistant MariaDB)  
 ├── wordpress/  
 │   └── wp-config.php (généré automatiquement)  
 ├── renouvellement_certificat.sh 
-├── certbot/ 
-└── db-data/  (volume persistant MariaDB)
+└── certbot/ 
 
 
 ---
