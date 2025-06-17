@@ -79,7 +79,6 @@ wordpress-docker-nginx/
 ├── wordpress/  
 │   └── wp-config.php (généré automatiquement)  
 ├── renouvellement_certificat.sh 
-|
 └── certbot/ 
 
 
